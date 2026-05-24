@@ -1,0 +1,1450 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Floratta Repostería</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown:       #6b4f3b;
+      --brown-light: #9e7b67;
+      --brown-dark:  #4a3328;
+      --cream:       #faf7f4;
+      --cream-dark:  #f0ebe5;
+      --rose:        #e8c4b8;
+      --rose-light:  #f4dfd8;
+      --text:        #2a1f1a;
+      --text-muted:  #7a6259;
+      --white:       #ffffff;
+      --container:   1160px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--brown-light); border-radius: 3px; }
+
+    /* ── WRAP ── */
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+
+    /* ══════════════════════════════════
+       HEADER / NAV
+    ══════════════════════════════════ */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,247,244,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(107,79,59,0.12);
+      transition: box-shadow .3s;
+    }
+    header.scrolled { box-shadow: 0 4px 24px rgba(107,79,59,0.10); }
+
+    .topbar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 72px; gap: 20px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .brand-logo {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--brown);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-style: italic; font-weight: 600;
+      flex-shrink: 0;
+    }
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600;
+      color: var(--brown-dark); line-height: 1.1;
+    }
+    .brand-tagline { font-size: 11px; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; }
+
+    nav ul { display: flex; gap: 4px; list-style: none; }
+    nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: .04em;
+      padding: 6px 12px; border-radius: 6px;
+      transition: color .2s, background .2s;
+    }
+    nav a:hover { color: var(--brown); background: var(--rose-light); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+    .btn-ghost {
+      color: var(--brown); font-size: 13px; font-weight: 500;
+      padding: 7px 16px; border-radius: 8px;
+      border: 1.5px solid var(--brown); background: transparent;
+      text-decoration: none; cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .btn-ghost:hover { background: var(--brown); color: white; }
+    .btn-fill {
+      background: var(--brown); color: white;
+      font-size: 13px; font-weight: 500;
+      padding: 7px 18px; border-radius: 8px;
+      border: none; text-decoration: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-fill:hover { background: var(--brown-dark); transform: translateY(-1px); }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--brown); border-radius: 2px; transition: .3s; }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    #inicio {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fdf9f7 0%, #f5ede8 50%, #ede0d8 100%);
+      min-height: 88vh;
+      display: flex; align-items: center;
+    }
+
+    /* decorative petals */
+    #inicio::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(232,196,184,0.45) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #inicio::after {
+      content: '';
+      position: absolute; bottom: -60px; left: 10%;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(107,79,59,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px; align-items: center;
+      padding: 80px 0 60px;
+      position: relative; z-index: 1;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--brown); font-weight: 600;
+      background: var(--rose-light); padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 400; line-height: 1.12;
+      color: var(--brown-dark); margin-bottom: 22px;
+    }
+    .hero-title em { font-style: italic; color: var(--brown); }
+
+    .hero-desc {
+      font-size: 15px; color: var(--text-muted);
+      max-width: 520px; margin-bottom: 32px; line-height: 1.75;
+    }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--brown); color: white;
+      padding: 13px 28px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; letter-spacing: .04em;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(107,79,59,0.28);
+    }
+    .btn-primary:hover { background: var(--brown-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,79,59,0.32); }
+    .btn-secondary {
+      background: transparent; color: var(--brown);
+      padding: 13px 28px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; letter-spacing: .04em;
+      text-decoration: none; border: 1.5px solid var(--brown);
+      cursor: pointer; transition: background .2s, transform .15s;
+    }
+    .btn-secondary:hover { background: var(--rose-light); transform: translateY(-2px); }
+
+    .hero-badges {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .badge {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--text-muted);
+    }
+    .badge-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: white; box-shadow: 0 2px 8px rgba(107,79,59,0.12);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+
+    /* form card */
+    .hero-form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 12px 48px rgba(107,79,59,0.12);
+      border: 1px solid rgba(107,79,59,0.06);
+    }
+    .form-tabs {
+      display: flex; gap: 0; border-radius: 10px;
+      background: var(--cream-dark); padding: 4px; margin-bottom: 24px;
+    }
+    .form-tab {
+      flex: 1; text-align: center; padding: 8px;
+      font-size: 13px; font-weight: 500; border-radius: 8px;
+      cursor: pointer; color: var(--text-muted); transition: .2s;
+      border: none; background: transparent;
+    }
+    .form-tab.active {
+      background: white; color: var(--brown);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 7px;
+    }
+    .form-group input, .form-group select {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #e8e0d8; border-radius: 10px;
+      font-family: 'Jost', sans-serif; font-size: 14px;
+      color: var(--text); background: var(--cream);
+      transition: border-color .2s;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--brown-light);
+      background: white;
+    }
+    .form-submit {
+      width: 100%; padding: 12px;
+      background: var(--brown); color: white;
+      border: none; border-radius: 10px;
+      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: background .2s;
+      margin-top: 4px;
+    }
+    .form-submit:hover { background: var(--brown-dark); }
+    .form-link {
+      text-align: center; margin-top: 12px;
+      font-size: 13px; color: var(--text-muted);
+    }
+    .form-link a { color: var(--brown); text-decoration: none; }
+
+    /* ══════════════════════════════════
+       SECTION TITLES
+    ══════════════════════════════════ */
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--brown); font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 400; color: var(--brown-dark); line-height: 1.2;
+    }
+    .section-title em { font-style: italic; color: var(--brown); }
+    .section-subtitle {
+      font-size: 15px; color: var(--text-muted);
+      max-width: 560px; margin: 14px auto 0; line-height: 1.7;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(to right, var(--brown), var(--rose));
+      border-radius: 2px; margin: 20px auto 0;
+    }
+
+    /* ══════════════════════════════════
+       SOBRE NOSOTROS
+    ══════════════════════════════════ */
+    #sobre {
+      padding: 100px 0;
+      background: white;
+      position: relative;
+    }
+    #sobre::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--rose), var(--brown), var(--rose), transparent);
+    }
+
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .sobre-img-block { position: relative; }
+    .sobre-img-main {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--rose-light), var(--cream-dark));
+      border-radius: 20px; overflow: hidden; position: relative;
+    }
+    .sobre-img-main .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      color: var(--brown-light); font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-style: italic;
+    }
+    .sobre-img-main .img-placeholder span { font-size: 56px; }
+    .sobre-float {
+      position: absolute; bottom: -24px; right: -24px;
+      background: white; border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 8px 32px rgba(107,79,59,0.14);
+      text-align: center;
+    }
+    .sobre-float .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px; font-weight: 600; color: var(--brown); line-height: 1;
+    }
+    .sobre-float .label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .sobre-content { }
+    .sobre-content p {
+      font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;
+    }
+    .valores-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .valores-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 14px; color: var(--text-muted);
+    }
+    .valor-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: var(--rose-light); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .valor-text strong { display: block; font-size: 14px; color: var(--text); font-weight: 600; }
+
+    /* ══════════════════════════════════
+       TEMPORADA
+    ══════════════════════════════════ */
+    #temporada { padding: 100px 0; background: var(--cream); }
+
+    .temporada-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .temp-card {
+      background: white; border-radius: 18px;
+      overflow: hidden; position: relative;
+      box-shadow: 0 4px 20px rgba(107,79,59,0.07);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .temp-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(107,79,59,0.14); }
+    .temp-card-img {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 52px;
+      position: relative;
+    }
+    .temp-card:nth-child(1) .temp-card-img { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+    .temp-card:nth-child(2) .temp-card-img { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+    .temp-card:nth-child(3) .temp-card-img { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+    .temp-card:nth-child(4) .temp-card-img { background: linear-gradient(135deg, #fff8e1, #ffecb3); }
+    .temp-card:nth-child(5) .temp-card-img { background: linear-gradient(135deg, #fce4ec, #ffcdd2); }
+    .temp-card:nth-child(6) .temp-card-img { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+
+    .temp-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--brown); color: white;
+      font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; font-weight: 600;
+    }
+    .temp-card-body { padding: 22px; }
+    .temp-card-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; color: var(--brown-dark);
+      margin-bottom: 8px;
+    }
+    .temp-card-body p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+    .temp-price {
+      font-size: 13px; font-weight: 600; color: var(--brown);
+      margin-top: 14px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .btn-add {
+      background: var(--rose-light); color: var(--brown);
+      border: none; padding: 6px 14px; border-radius: 8px;
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: background .2s;
+    }
+    .btn-add:hover { background: var(--rose); }
+
+    /* ══════════════════════════════════
+       VEREDA
+    ══════════════════════════════════ */
+    #vereda {
+      padding: 100px 0;
+      background: linear-gradient(160deg, var(--brown-dark) 0%, #3a2820 100%);
+      color: white; position: relative; overflow: hidden;
+    }
+    #vereda::before {
+      content: '';
+      position: absolute; top: -120px; right: -80px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(232,196,184,0.12) 0%, transparent 65%);
+      border-radius: 50%; pointer-events: none;
+    }
+    #vereda .section-title { color: var(--rose-light); }
+    #vereda .section-eyebrow { color: var(--rose); }
+    #vereda .section-subtitle { color: rgba(255,255,255,0.62); }
+    #vereda .divider { background: linear-gradient(to right, var(--rose), var(--brown-light)); }
+
+    .vereda-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center;
+    }
+    .vereda-img {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 5/4;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 72px; position: relative;
+    }
+    .vereda-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .vereda-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 400; color: white; margin-bottom: 16px;
+    }
+    .vereda-content p { font-size: 15px; color: rgba(255,255,255,0.68); line-height: 1.8; margin-bottom: 16px; }
+
+    .vereda-productos {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px;
+    }
+    .vereda-item {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 16px;
+      transition: background .2s;
+    }
+    .vereda-item:hover { background: rgba(255,255,255,0.12); }
+    .vereda-item-icon { font-size: 24px; margin-bottom: 8px; }
+    .vereda-item h4 {
+      font-size: 14px; font-weight: 600; color: var(--rose-light); margin-bottom: 4px;
+    }
+    .vereda-item p { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.5; }
+
+    /* ══════════════════════════════════
+       PERSONALIZACIÓN
+    ══════════════════════════════════ */
+    #personalizacion { padding: 100px 0; background: white; }
+
+    .pers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .pers-steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 24px;
+      padding-bottom: 32px; position: relative;
+    }
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute; left: 19px; top: 48px; bottom: 0;
+      width: 2px; background: var(--cream-dark);
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--brown); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; flex-shrink: 0;
+    }
+    .step-content h4 {
+      font-size: 16px; font-weight: 600; color: var(--brown-dark); margin-bottom: 6px;
+    }
+    .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* cotización form */
+    .cotizacion-form {
+      background: var(--cream); border-radius: 20px; padding: 32px;
+    }
+    .cotizacion-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 600; color: var(--brown-dark);
+      margin-bottom: 22px;
+    }
+
+    .tendencias-banner {
+      margin-top: 56px;
+      background: linear-gradient(135deg, var(--rose-light), var(--cream-dark));
+      border-radius: 20px; padding: 40px;
+      display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+    }
+    .tendencias-banner h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; color: var(--brown-dark); margin-bottom: 10px;
+    }
+    .tendencias-banner p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .trend-tag {
+      display: inline-block; background: white; border-radius: 20px;
+      padding: 5px 14px; font-size: 12px; color: var(--brown); font-weight: 500;
+      margin: 4px 4px 0 0; box-shadow: 0 2px 8px rgba(107,79,59,0.08);
+    }
+    .tendencias-img { font-size: 72px; }
+
+    /* ══════════════════════════════════
+       TODOS LOS PRODUCTOS
+    ══════════════════════════════════ */
+    #productos { padding: 100px 0; background: var(--cream); }
+
+    .productos-tabs {
+      display: flex; gap: 8px; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 44px;
+    }
+    .ptab {
+      padding: 9px 22px; border-radius: 24px; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: .2s; border: 1.5px solid transparent;
+      background: white; color: var(--text-muted);
+      box-shadow: 0 2px 8px rgba(107,79,59,0.06);
+    }
+    .ptab.active, .ptab:hover {
+      background: var(--brown); color: white; border-color: var(--brown);
+    }
+
+    .productos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .prod-card {
+      background: white; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(107,79,59,0.06);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .prod-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(107,79,59,0.12); }
+    .prod-card-img {
+      height: 180px; display: flex; align-items: center; justify-content: center; font-size: 48px;
+    }
+    .prod-card:nth-child(1) .prod-card-img { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+    .prod-card:nth-child(2) .prod-card-img { background: linear-gradient(135deg, #fff8e1, #ffe082); }
+    .prod-card:nth-child(3) .prod-card-img { background: linear-gradient(135deg, #f3e5f5, #ce93d8); }
+    .prod-card:nth-child(4) .prod-card-img { background: linear-gradient(135deg, #e8f5e9, #a5d6a7); }
+    .prod-card:nth-child(5) .prod-card-img { background: linear-gradient(135deg, #e3f2fd, #90caf9); }
+    .prod-card:nth-child(6) .prod-card-img { background: linear-gradient(135deg, #fbe9e7, #ffab91); }
+    .prod-card-body { padding: 22px; }
+    .prod-card-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; color: var(--brown-dark); margin-bottom: 8px;
+    }
+    .prod-card-body p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+    .prod-card-footer {
+      padding: 0 22px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .prod-desde { font-size: 11px; color: var(--text-muted); }
+    .prod-desde strong { display: block; font-size: 16px; color: var(--brown); font-weight: 600; }
+
+    /* ══════════════════════════════════
+       CONTACTO
+    ══════════════════════════════════ */
+    #contacto { padding: 100px 0; background: white; }
+
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; }
+    .contacto-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; color: var(--brown-dark); margin-bottom: 16px;
+    }
+    .contacto-info p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 28px; }
+
+    .info-items { display: flex; flex-direction: column; gap: 16px; }
+    .info-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px; background: var(--cream);
+      border-radius: 12px;
+    }
+    .info-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--rose-light); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .info-item strong { display: block; font-size: 13px; color: var(--text); font-weight: 600; }
+    .info-item span { font-size: 13px; color: var(--text-muted); }
+
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: white;
+      padding: 14px 28px; border-radius: 12px;
+      font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.30);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
+
+    .contacto-form-card {
+      background: var(--cream); border-radius: 20px; padding: 36px;
+    }
+    .contacto-form-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; color: var(--brown-dark); margin-bottom: 24px;
+    }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .contacto-form-card textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #e8e0d8; border-radius: 10px;
+      font-family: 'Jost', sans-serif; font-size: 14px;
+      color: var(--text); background: white; resize: vertical;
+      min-height: 100px; outline: none; transition: border-color .2s;
+    }
+    .contacto-form-card textarea:focus { border-color: var(--brown-light); }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      background: var(--brown-dark); color: rgba(255,255,255,0.7);
+      padding: 56px 0 28px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .brand-name { color: var(--rose-light); font-size: 24px; }
+    .footer-brand .brand-tagline { color: rgba(255,255,255,0.45); margin-top: 4px; }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 16px; line-height: 1.7; }
+
+    .footer-col h4 {
+      font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: white; font-weight: 600; margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 13px; color: rgba(255,255,255,0.58);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px; display: flex;
+      justify-content: space-between; align-items: center;
+      font-size: 13px; color: rgba(255,255,255,0.4);
+      flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ══════════════════════════════════
+       TOAST / MODAL
+    ══════════════════════════════════ */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      background: var(--brown-dark); color: white;
+      padding: 14px 22px; border-radius: 12px;
+      font-size: 14px; box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+      display: flex; align-items: center; gap: 10px;
+      transform: translateY(80px); opacity: 0;
+      transition: transform .35s ease, opacity .35s ease;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 18px; }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 1020px) {
+      .hero-grid, .sobre-grid, .vereda-grid,
+      .pers-grid, .contacto-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-form-card { max-width: 480px; }
+      .sobre-float { right: 0; bottom: -16px; }
+      .tendencias-banner { grid-template-columns: 1fr; }
+      .tendencias-img { display: none; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding: 0 20px; }
+      .topbar { height: 64px; }
+      nav, .nav-actions .btn-ghost { display: none; }
+      .hamburger { display: flex; }
+      .temporada-grid, .productos-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .vereda-productos { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .temporada-grid, .productos-grid { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+    }
+
+    /* mobile nav overlay */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: var(--cream);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-style: italic; font-weight: 400;
+      color: var(--brown-dark); text-decoration: none;
+      padding: 14px; transition: color .2s;
+    }
+    .mobile-nav a:hover { color: var(--brown); }
+    .mobile-close {
+      position: absolute; top: 24px; right: 28px;
+      font-size: 28px; cursor: pointer; color: var(--brown);
+      border: none; background: none; font-family: 'Jost', sans-serif;
+    }
+
+    /* scroll fade-in */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header id="header">
+  <div class="wrap topbar">
+    <a class="brand" href="#inicio">
+      <div class="brand-logo">F</div>
+      <div>
+        <div class="brand-name">Floratta</div>
+        <div class="brand-tagline">Repostería & Pastelería</div>
+      </div>
+    </a>
+
+    <nav>
+      <ul>
+        <li><a href="#sobre">Sobre nosotros</a></li>
+        <li><a href="#temporada">Temporada</a></li>
+        <li><a href="#vereda">Vereda</a></li>
+        <li><a href="#personalizacion">Personalización</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn-ghost" onclick="openTab('login')">Iniciar sesión</button>
+      <button class="btn-fill" onclick="openTab('registro')">Registrarse</button>
+      <div class="hamburger" onclick="toggleMobileNav()" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleMobileNav()">✕</button>
+  <a href="#sobre" onclick="toggleMobileNav()">Sobre nosotros</a>
+  <a href="#temporada" onclick="toggleMobileNav()">Temporada</a>
+  <a href="#vereda" onclick="toggleMobileNav()">Vereda</a>
+  <a href="#personalizacion" onclick="toggleMobileNav()">Personalización</a>
+  <a href="#contacto" onclick="toggleMobileNav()">Contacto</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="inicio">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left reveal">
+        <div class="hero-label">✦ Pastelería artesanal · Guarne, Antioquia</div>
+        <h1 class="hero-title">
+          Cada bocado<br>
+          es una <em>obra de arte</em>
+        </h1>
+        <p class="hero-desc">Creamos tortas y postres personalizados con ingredientes de alta calidad, diseños innovadores y la magia de quienes aman su oficio. Cada detalle cuenta, cada momento importa.</p>
+        <div class="hero-ctas">
+          <a href="#personalizacion" class="btn-primary">Solicitar cotización</a>
+          <a href="#productos" class="btn-secondary">Ver productos</a>
+        </div>
+        <div class="hero-badges">
+          <div class="badge">
+            <div class="badge-icon">🌸</div>
+            <span>Diseños<br>únicos</span>
+          </div>
+          <div class="badge">
+            <div class="badge-icon">🏆</div>
+            <span>Ingredientes<br>premium</span>
+          </div>
+          <div class="badge">
+            <div class="badge-icon">🚚</div>
+            <span>Envío<br>Medellín</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right reveal" style="transition-delay:.15s">
+        <div class="hero-form-card">
+          <div class="form-tabs">
+            <button class="form-tab active" onclick="openTab('login')">Iniciar sesión</button>
+            <button class="form-tab" onclick="openTab('registro')">Registrarse</button>
+          </div>
+
+          <div class="form-panel active" id="panel-login">
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" placeholder="tu@correo.com" />
+            </div>
+            <div class="form-group">
+              <label>Contraseña</label>
+              <input type="password" placeholder="••••••••" />
+            </div>
+            <button class="form-submit" onclick="handleLogin()">Iniciar sesión</button>
+            <div class="form-link">
+              <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+          </div>
+
+          <div class="form-panel" id="panel-registro">
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" placeholder="tu@correo.com" />
+            </div>
+            <div class="form-group">
+              <label>Teléfono (opcional)</label>
+              <input type="text" placeholder="300 000 0000" />
+            </div>
+            <div class="form-group">
+              <label>Contraseña</label>
+              <input type="password" placeholder="••••••••" />
+            </div>
+            <button class="form-submit" onclick="handleRegistro()">Crear cuenta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SOBRE NOSOTROS ═══════════════ -->
+<section id="sobre">
+  <div class="wrap">
+    <div class="sobre-grid reveal">
+      <div class="sobre-img-block">
+        <div class="sobre-img-main">
+          <div class="img-placeholder">
+            <span>🎂</span>
+            Floratta
+          </div>
+        </div>
+        <div class="sobre-float">
+          <div class="num">5+</div>
+          <div class="label">años de experiencia</div>
+        </div>
+      </div>
+
+      <div class="sobre-content">
+        <div class="section-eyebrow">✦ Nuestra historia</div>
+        <h2 class="section-title">Pasión por la <em>repostería artesanal</em></h2>
+        <div class="divider" style="margin: 18px 0 24px; width: 48px;"></div>
+        <p>Floratta nació del amor por el arte y los sabores auténticos. Somos una pastelería artesanal ubicada en Guarne, Antioquia, comprometida con crear experiencias dulces e irrepetibles para cada ocasión.</p>
+        <p>Nos reunimos contigo para entender tu visión y hacer realidad el postre de tus sueños. Desde una torta de cumpleaños íntima hasta la pieza central de tu boda, cada creación lleva nuestra firma de calidad.</p>
+        <ul class="valores-list">
+          <li>
+            <div class="valor-icon">✨</div>
+            <div class="valor-text">
+              <strong>Calidad premium</strong>
+              Ingredientes seleccionados, frescos y de primera calidad en cada preparación.
+            </div>
+          </li>
+          <li>
+            <div class="valor-icon">🎨</div>
+            <div class="valor-text">
+              <strong>Diseño único</strong>
+              Cada torta es una obra de arte irrepetible, diseñada para tu momento especial.
+            </div>
+          </li>
+          <li>
+            <div class="valor-icon">💛</div>
+            <div class="valor-text">
+              <strong>Atención personalizada</strong>
+              Consultoría individual para que tu visión se convierta en realidad.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TEMPORADA ═══════════════ -->
+<section id="temporada">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">✦ Edición especial</div>
+      <h2 class="section-title">Productos de <em>Temporada</em></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Creaciones exclusivas que celebran el momento presente. Disponibles por tiempo limitado con los mejores ingredientes de la estación.</p>
+    </div>
+
+    <div class="temporada-grid reveal">
+      <div class="temp-card">
+        <div class="temp-card-img">🍓
+          <div class="temp-badge">Temporada</div>
+        </div>
+        <div class="temp-card-body">
+          <h3>Cake Frutal de Temporada</h3>
+          <p>Elaborado con frutas frescas de la región, capas de crema suave y decoración artesanal. Un homenaje a los sabores naturales.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$120.000</strong></span>
+            <button class="btn-add" onclick="showToast('¡Producto añadido! Te contactaremos para personalizar tu pedido 🎂')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <div class="temp-card-img">🌸
+          <div class="temp-badge">Nuevo</div>
+        </div>
+        <div class="temp-card-body">
+          <h3>Torta de Amor Primaveral</h3>
+          <p>Decoración floral delicada con pétalos comestibles, relleno de maracuyá y crema de vainilla francesa.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$150.000</strong></span>
+            <button class="btn-add" onclick="showToast('¡Excelente elección! Te contactaremos pronto 🌸')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <div class="temp-card-img">🌿
+          <div class="temp-badge">Popular</div>
+        </div>
+        <div class="temp-card-body">
+          <h3>Naked Cake Jardín</h3>
+          <p>Estilo rústico con acabado orgánico, frutas del bosque, hojas frescas y ganache de chocolate blanco.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$130.000</strong></span>
+            <button class="btn-add" onclick="showToast('¡Perfecto! Recibirás información muy pronto 🌿')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <div class="temp-card-img">🍰</div>
+        <div class="temp-card-body">
+          <h3>Cheesecake de Mango</h3>
+          <p>Base de galleta artesanal, relleno cremoso de queso fresco y coulis de mango maduro. Frío y delicioso.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$80.000</strong></span>
+            <button class="btn-add" onclick="showToast('¡Anotado! Te contactaremos para tu pedido 🍰')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <div class="temp-card-img">💕</div>
+        <div class="temp-card-body">
+          <h3>Mini Tortas San Valentín</h3>
+          <p>Colección de mini tortas individuales decoradas con corazones, rosas y detalles en oro comestible.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$45.000 c/u</strong></span>
+            <button class="btn-add" onclick="showToast('¡Qué romántico! Te escribimos pronto 💕')">Consultar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <div class="temp-card-img">☁️</div>
+        <div class="temp-card-body">
+          <h3>Cloud Cake de Lychee</h3>
+          <p>Suave como una nube, capas de bizcocho japonés con mousse de lychee y flores de azúcar prensadas.</p>
+          <div class="temp-price">
+            <span>Desde <strong>$170.000</strong></span>
+            <button class="btn-add" onclick="showToast('¡Qué elección tan sofisticada! Pronto te contactamos ☁️')">Consultar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VEREDA ═══════════════ -->
+<section id="vereda">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">✦ Línea especial</div>
+      <h2 class="section-title">Productos <em>Vereda</em></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Inspirados en los sabores y tradiciones del campo antioqueño. Una línea que celebra nuestras raíces con el sello de calidad Floratta.</p>
+    </div>
+
+    <div class="vereda-grid reveal">
+      <div class="vereda-img">
+        <img src="img/Vereda.JPG" alt="Productos Vereda Floratta" onerror="this.style.display='none'; this.parentNode.style.fontSize='72px'; this.parentNode.textContent='🌾';" />
+      </div>
+
+      <div class="vereda-content">
+        <h3>El sabor auténtico<br>de Antioquia</h3>
+        <p>La línea Vereda es un homenaje a las tradiciones culinarias de nuestra región. Cada producto está elaborado con recetas transmitidas por generaciones, combinadas con la elegancia y precisión de la repostería moderna.</p>
+        <p>Ingredientes locales, sabores familiares y la calidez de lo hecho con amor. Una experiencia que te lleva de vuelta a los mejores momentos.</p>
+
+        <div class="vereda-productos">
+          <div class="vereda-item">
+            <div class="vereda-item-icon">🍮</div>
+            <h4>Natilla Artesanal</h4>
+            <p>Receta tradicional con panela, canela y leche fresca de la región.</p>
+          </div>
+          <div class="vereda-item">
+            <div class="vereda-item-icon">🌽</div>
+            <h4>Torta de Maíz</h4>
+            <p>Suave y húmeda, con maíz amarillo molido en piedra y bocadillo.</p>
+          </div>
+          <div class="vereda-item">
+            <div class="vereda-item-icon">🍫</div>
+            <h4>Brownie de Cacao</h4>
+            <p>Cacao artesanal del Suroeste antioqueño, intenso y cremoso.</p>
+          </div>
+          <div class="vereda-item">
+            <div class="vereda-item-icon">🥧</div>
+            <h4>Postre de Tres Leches</h4>
+            <p>Clásico empapado en tres leches con merengue italiano.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:28px">
+          <a href="#contacto" class="btn-primary">Solicitar productos Vereda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PERSONALIZACIÓN ═══════════════ -->
+<section id="personalizacion">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">✦ Hecho a tu medida</div>
+      <h2 class="section-title">Tu ocasión, <em>perfectamente personalizada</em></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Desde la torta principal hasta la mesa de dulces completa. Asesoría personalizada para que tu evento sea inolvidable.</p>
+    </div>
+
+    <div class="pers-grid reveal">
+      <div>
+        <div class="pers-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Consultoría inicial</h4>
+              <p>Conversamos contigo para entender tu estilo, la ocasión y los detalles que hacen único tu momento.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Diseño y propuesta</h4>
+              <p>Creamos una propuesta visual personalizada con bocetos del diseño, sabores y presupuesto detallado.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Elaboración artesanal</h4>
+              <p>Con tu aprobación, elaboramos cada pieza con los mejores ingredientes y total dedicación artesanal.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Entrega y montaje</h4>
+              <p>Entregamos a tiempo con opción de montaje y desmontaje en el lugar del evento. Tu tranquilidad es nuestra prioridad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cotizacion-form">
+        <h3>Solicitar cotización</h3>
+        <div class="form-group">
+          <label>Tipo de evento</label>
+          <select>
+            <option>-- Seleccionar --</option>
+            <option>Boda / Matrimonio</option>
+            <option>Cumpleaños</option>
+            <option>Baby Shower</option>
+            <option>Grado / Celebración</option>
+            <option>Evento corporativo</option>
+            <option>Primera Comunión</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Número de porciones</label>
+          <select>
+            <option>-- Seleccionar --</option>
+            <option>Hasta 20 porciones</option>
+            <option>20 – 50 porciones</option>
+            <option>50 – 100 porciones</option>
+            <option>100 – 200 porciones</option>
+            <option>Más de 200 porciones</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" id="cot-nombre" />
+        </div>
+        <div class="form-group">
+          <label>Teléfono o WhatsApp</label>
+          <input type="text" placeholder="319 412 2610" id="cot-tel" />
+        </div>
+        <div class="form-group">
+          <label>Cuéntanos tu idea</label>
+          <input type="text" placeholder="Ej: Torta floral para boda de 100 personas..." id="cot-idea" />
+        </div>
+        <button class="form-submit" onclick="handleCotizacion()">Enviar solicitud</button>
+      </div>
+    </div>
+
+    <!-- tendencias -->
+    <div class="tendencias-banner reveal" style="margin-top: 56px;">
+      <div>
+        <h3>✨ Tendencias 2025 — Tortas de Novia</h3>
+        <p>Las <em>long wedding cakes</em> y decoraciones florales sutiles son la gran tendencia de esta temporada. Blancos puros, tonos nude y marfil que complementan cualquier entorno y estilo de ceremonia.</p>
+        <div style="margin-top:14px">
+          <span class="trend-tag">Long Wedding Cake</span>
+          <span class="trend-tag">Flores Comestibles</span>
+          <span class="trend-tag">Buttercream Orgánico</span>
+          <span class="trend-tag">Minimalismo Elegante</span>
+          <span class="trend-tag">Monogramas Dorados</span>
+          <span class="trend-tag">Naked Cake</span>
+        </div>
+      </div>
+      <div class="tendencias-img">💒</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TODOS LOS PRODUCTOS ═══════════════ -->
+<section id="productos">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">✦ Nuestro portafolio</div>
+      <h2 class="section-title">Productos <em>Floratta</em></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Una selección curada de nuestras creaciones más populares. Cada una puede personalizarse a tu gusto.</p>
+    </div>
+
+    <div class="productos-tabs reveal">
+      <button class="ptab active" onclick="filterProds(this,'todos')">Todos</button>
+      <button class="ptab" onclick="filterProds(this,'cake')">Cakes</button>
+      <button class="ptab" onclick="filterProds(this,'evento')">Eventos</button>
+      <button class="ptab" onclick="filterProds(this,'institucional')">Institucional</button>
+    </div>
+
+    <div class="productos-grid reveal" id="prodGrid">
+      <div class="prod-card" data-cat="cake">
+        <div class="prod-card-img">🎂</div>
+        <div class="prod-card-body">
+          <h3>Cake Artístico</h3>
+          <p>Diseños únicos sobre fondant o chocolate. Cada pieza es una expresión artística única con nivel de detalle profesional.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$150.000</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🎂')">Ver más</button>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="cake">
+        <div class="prod-card-img">🌹</div>
+        <div class="prod-card-body">
+          <h3>Cake Romántico</h3>
+          <p>Delicadeza y elegancia en cada capa. Texturas aterciopeladas y sabores suaves que conquistan el corazón.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$140.000</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🌹')">Ver más</button>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="cake">
+        <div class="prod-card-img">🌺</div>
+        <div class="prod-card-body">
+          <h3>Cake Floral</h3>
+          <p>Las flores dan vida y color. Comestibles o naturales, dispuestas sobre buttercream, chocolate o fondant de primera calidad.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$130.000</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🌺')">Ver más</button>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="evento">
+        <div class="prod-card-img">🎊</div>
+        <div class="prod-card-body">
+          <h3>Mesa Dulce para Eventos</h3>
+          <p>Selección curada de postres, macarons, cakepops y delicias para tu mesa dulce. Diseño coordinado con la temática del evento.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$350.000</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🎊')">Ver más</button>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="institucional">
+        <div class="prod-card-img">🏢</div>
+        <div class="prod-card-body">
+          <h3>Corporativo Institucional</h3>
+          <p>Productos personalizados con el logo o branding de tu empresa para eventos corporativos, lanzamientos y celebraciones.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$200.000</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🏢')">Ver más</button>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="evento">
+        <div class="prod-card-img">🧁</div>
+        <div class="prod-card-body">
+          <h3>Cupcakes Personalizados</h3>
+          <p>Cupcakes decorados a mano con diseños acordes a tu temática. Ideales para cualquier celebración o regalo corporativo.</p>
+        </div>
+        <div class="prod-card-footer">
+          <div class="prod-desde"><span>Desde</span><strong>$8.000 c/u</strong></div>
+          <button class="btn-add" onclick="showToast('¡Solicitud enviada! Pronto te contactamos 🧁')">Ver más</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACTO ═══════════════ -->
+<section id="contacto">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">✦ Hablemos</div>
+      <h2 class="section-title">¿Listo para crear <em>algo especial?</em></h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">Escríbenos, llámanos o visítanos. Estamos aquí para hacer realidad tus ideas más dulces.</p>
+    </div>
+
+    <div class="contacto-grid reveal">
+      <div class="contacto-info">
+        <h3>Información de contacto</h3>
+        <p>Estamos ubicados en Guarne, Antioquia, y hacemos envíos a Medellín y el área metropolitana. ¡No importa la distancia, llevamos magia hasta tu puerta!</p>
+
+        <div class="info-items">
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+              <strong>Ubicación</strong>
+              <span>Guarne, Antioquia, Colombia</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div>
+              <strong>Correo electrónico</strong>
+              <span>florattapasteleria@gmail.com</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📱</div>
+            <div>
+              <strong>WhatsApp / Teléfono</strong>
+              <span>319 412 2610</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🚚</div>
+            <div>
+              <strong>Envíos</strong>
+              <span>Medellín y Área Metropolitana $10.000 · Oriente Cercano $15.000</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">⏰</div>
+            <div>
+              <strong>Atención</strong>
+              <span>Lunes a Sábado · 8:00 am – 6:00 pm</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/573194122610" class="whatsapp-btn" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+
+      <div class="contacto-form-card">
+        <h3>Envíanos un mensaje</h3>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" id="cont-nombre" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" placeholder="300 000 0000" id="cont-tel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tu@correo.com" id="cont-email" />
+        </div>
+        <div class="form-group">
+          <label>Tipo de consulta</label>
+          <select id="cont-tipo">
+            <option>-- Seleccionar --</option>
+            <option>Cotización de torta</option>
+            <option>Productos de temporada</option>
+            <option>Productos Vereda</option>
+            <option>Evento corporativo</option>
+            <option>Mesa dulce para evento</option>
+            <option>Otra consulta</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Cuéntanos sobre tu ocasión especial..." id="cont-msg"></textarea>
+        </div>
+        <button class="form-submit" onclick="handleContacto()">Enviar mensaje</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-name" style="font-family:'Cormorant Garamond',serif;font-size:24px;">Floratta</div>
+        <div class="brand-tagline" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px;">Repostería & Pastelería</div>
+        <p>Creaciones dulces y personalizadas con amor artesanal desde Guarne, Antioquia. Tu momento especial merece la mejor pieza.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Menú</h4>
+        <ul>
+          <li><a href="#sobre">Sobre nosotros</a></li>
+          <li><a href="#temporada">Productos de Temporada</a></li>
+          <li><a href="#vereda">Productos Vereda</a></li>
+          <li><a href="#personalizacion">Personalización</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Productos</h4>
+        <ul>
+          <li><a href="#productos">Cake Artístico</a></li>
+          <li><a href="#productos">Cake Romántico</a></li>
+          <li><a href="#productos">Cake Floral</a></li>
+          <li><a href="#productos">Mesas Dulces</a></li>
+          <li><a href="#productos">Corporativo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:florattapasteleria@gmail.com">florattapasteleria@gmail.com</a></li>
+          <li><a href="tel:+573194122610">319 412 2610</a></li>
+          <li><a href="#">Guarne, Antioquia</a></li>
+          <li><a href="https://wa.me/573194122610">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Floratta Repostería. Todos los derechos reservados.</span>
+      <span>Hecho con 💛 en Guarne, Antioquia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Mensaje enviado</span>
+</div>
+
+<script>
+  // ── Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Header scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // ── Mobile nav
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  // ── Form tabs
+  function openTab(tabId) {
+    document.querySelectorAll('.form-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === (tabId === 'login' ? 0 : 1));
+    });
+    document.getElementById('panel-login').classList.toggle('active', tabId === 'login');
+    document.getElementById('panel-registro').classList.toggle('active', tabId === 'registro');
+  }
+
+  // ── Toast
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // ── Form handlers
+  function handleLogin() {
+    showToast('¡Bienvenido de vuelta a Floratta! 🌸');
+  }
+  function handleRegistro() {
+    showToast('¡Cuenta creada con éxito! Bienvenido a Floratta 🎂');
+  }
+  function handleCotizacion() {
+    const nombre = document.getElementById('cot-nombre').value.trim();
+    if (!nombre) { showToast('Por favor ingresa tu nombre ✏️'); return; }
+    showToast(`¡Gracias ${nombre}! Te contactaremos pronto con tu cotización 💛`);
+  }
+  function handleContacto() {
+    const nombre = document.getElementById('cont-nombre').value.trim();
+    if (!nombre) { showToast('Por favor ingresa tu nombre ✏️'); return; }
+    showToast(`¡Mensaje recibido, ${nombre}! Te escribimos muy pronto 💌`);
+  }
+
+  // ── Product filter
+  function filterProds(btn, cat) {
+    document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.prod-card').forEach(card => {
+      const show = cat === 'todos' || card.dataset.cat === cat;
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  // ── Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
